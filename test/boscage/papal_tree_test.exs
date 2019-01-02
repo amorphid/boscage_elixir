@@ -4,7 +4,7 @@ defmodule Boscage.PapalTreeTest do
   @subject Boscage.PapalTree
 
   describe "&insert/3" do
-    test "size increases by 1 for new element" do
+    test "new key increases size" do
       empty = @subject.new()
       0 = @subject.size(empty)
       {:ok, not_empty} = @subject.insert(empty, :potato, "effin' tasty")
@@ -13,7 +13,7 @@ defmodule Boscage.PapalTreeTest do
       assert expected == actual
     end
 
-    test "duplicate key does not change size" do
+    test "duplicate key does not affect size" do
       key = :potato
       {:ok, new_tree} = @subject.insert(@subject.new(), key, "effin' tasty")
       1 = @subject.size(new_tree)
@@ -25,7 +25,7 @@ defmodule Boscage.PapalTreeTest do
   end
 
   describe "&size/1" do
-    test "size zero" do
+    test "empty" do
       assert @subject.size(@subject.new()) == 0
     end
   end
