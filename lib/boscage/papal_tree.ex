@@ -1,6 +1,7 @@
 defmodule Boscage.PapalTree do
   defstruct [
     :key,
+    :left,
     :size,
     :right,
     :value
@@ -9,6 +10,7 @@ defmodule Boscage.PapalTree do
   def new() do
     %__MODULE__{
       key: nil,
+      left: nil,
       right: nil,
       size: 0,
       value: nil
@@ -28,6 +30,12 @@ defmodule Boscage.PapalTree do
     {:ok, right} = new() |> insert(new_key, value)
     increased_size = data.size + 1
     {:ok, struct!(data, right: right, size: increased_size)}
+  end
+
+  def insert(%__MODULE__{} = data, new_key, value) do
+    {:ok, left} = new() |> insert(new_key, value)
+    increased_size = data.size + 1
+    {:ok, struct!(data, left: left, size: increased_size)}
   end
 
   def size(%__MODULE__{} = data) do
