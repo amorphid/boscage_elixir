@@ -57,6 +57,24 @@ defmodule Boscage.PapalTreeTest do
     end
   end
 
+  describe "&search/2" do
+    test "returns value for key" do
+      empty = @subject.new()
+      {key1, val1} = {:commander, "Data"}
+      {key2, val2} = {:doctor, "Crusher"}
+      {key3, val3} = {:captain, "Picard"}
+      {key4, val4} = {:admiral, "Janeway"}
+      {:ok, tree1} = @subject.insert(empty, :commander, "Data")
+      {:ok, tree2} = @subject.insert(tree1, :doctor, "Crusher")
+      {:ok, tree3} = @subject.insert(tree2, :captain, "Picard")
+      {:ok, tree4} = @subject.insert(tree3, :admiral, "Janeway")
+      assert @subject.search(tree4, key1) == val1
+      assert @subject.search(tree4, key2) == val2
+      assert @subject.search(tree4, key3) == val3
+      assert @subject.search(tree4, key4) == val4
+    end
+  end
+
   describe "&size/1" do
     test "empty" do
       assert @subject.size(@subject.new()) == 0

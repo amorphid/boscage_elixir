@@ -51,6 +51,25 @@ defmodule Boscage.PapalTree do
     {:ok, struct!(data, left: left2, size: increased_size)}
   end
 
+  def search(%__MODULE__{key: key} = data, key) do
+    data.value
+  end
+
+  def search(
+        %__MODULE__{key: stored_key, right: %__MODULE__{} = right} = data,
+        search_key
+      )
+      when search_key > stored_key do
+    search(right, search_key)
+  end
+
+  def search(
+        %__MODULE__{key: stored_key, left: %__MODULE__{} = left} = data,
+        search_key
+      ) do
+    search(left, search_key)
+  end
+
   def size(%__MODULE__{} = data) do
     data.size
   end
