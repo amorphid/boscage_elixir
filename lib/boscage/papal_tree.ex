@@ -56,7 +56,7 @@ defmodule Boscage.PapalTree do
   end
 
   def search(
-        %__MODULE__{key: stored_key, right: %__MODULE__{} = right} = data,
+        %__MODULE__{key: stored_key, right: %__MODULE__{} = right},
         search_key
       )
       when search_key > stored_key do
@@ -64,10 +64,14 @@ defmodule Boscage.PapalTree do
   end
 
   def search(
-        %__MODULE__{key: stored_key, left: %__MODULE__{} = left} = data,
+        %__MODULE__{key: stored_key, left: %__MODULE__{} = left},
         search_key
       ) do
     search(left, search_key)
+  end
+
+  def search(%__MODULE__{} = _, search_key) do
+    {:error, "key #{inspect(search_key)} not found"}
   end
 
   def size(%__MODULE__{} = data) do

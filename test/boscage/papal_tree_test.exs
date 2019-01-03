@@ -73,6 +73,13 @@ defmodule Boscage.PapalTreeTest do
       assert @subject.search(tree4, key3) == val3
       assert @subject.search(tree4, key4) == val4
     end
+
+    test "returns error for missing key" do
+      key = :key
+      expected = {:error, "key #{inspect(key)} not found"}
+      actual = @subject.search(@subject.new(), key)
+      assert expected == actual
+    end
   end
 
   describe "&size/1" do
