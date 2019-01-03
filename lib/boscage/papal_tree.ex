@@ -32,10 +32,23 @@ defmodule Boscage.PapalTree do
     {:ok, struct!(data, right: right, size: increased_size)}
   end
 
-  def insert(%__MODULE__{} = data, new_key, value) do
+  def insert(%__MODULE__{key: existing_key, right: right} = data, new_key, value)
+      when new_key > existing_key do
+    {:ok, right2} = insert(right, new_key, value)
+    increased_size = data.size + 1
+    {:ok, struct!(data, right: right2, size: increased_size)}
+  end
+
+  def insert(%__MODULE__{left: nil} = data, new_key, value) do
     {:ok, left} = new() |> insert(new_key, value)
     increased_size = data.size + 1
     {:ok, struct!(data, left: left, size: increased_size)}
+  end
+
+  def insert(%__MODULE__{left: left} = data, new_key, value) do
+    {:ok, left2} = insert(left, new_key, value)
+    increased_size = data.size + 1
+    {:ok, struct!(data, left: left2, size: increased_size)}
   end
 
   def size(%__MODULE__{} = data) do

@@ -23,6 +23,16 @@ defmodule Boscage.PapalTreeTest do
       assert expected == actual
     end
 
+    test "Adding 2 new keys increases size by 2" do
+      empty = @subject.new()
+      0 = @subject.size(empty)
+      {:ok, size1} = @subject.insert(empty, :commander, "Data")
+      {:ok, size2} = @subject.insert(size1, :doctor, "Crusher")
+      expected = 2
+      actual = @subject.size(size2)
+      assert expected == actual
+    end
+
     test "Adding 3 new keys increases size by 3" do
       empty = @subject.new()
       0 = @subject.size(empty)
@@ -31,6 +41,18 @@ defmodule Boscage.PapalTreeTest do
       {:ok, size3} = @subject.insert(size2, :captain, "Picard")
       expected = 3
       actual = @subject.size(size3)
+      assert expected == actual
+    end
+
+    test "Adding 4 new keys increases size by 4" do
+      empty = @subject.new()
+      0 = @subject.size(empty)
+      {:ok, size1} = @subject.insert(empty, :commander, "Data")
+      {:ok, size2} = @subject.insert(size1, :doctor, "Crusher")
+      {:ok, size3} = @subject.insert(size2, :captain, "Picard")
+      {:ok, size4} = @subject.insert(size3, :admiral, "Janeway")
+      expected = 4
+      actual = @subject.size(size4)
       assert expected == actual
     end
   end
