@@ -13,6 +13,8 @@ defmodule Boscage.PapalTreeTest do
 
   def key4(), do: 4
 
+  def key5(), do: 5
+
   def shifted_size0(), do: @subject.new()
 
   def shifted_size1() do
@@ -147,6 +149,46 @@ defmodule Boscage.PapalTreeTest do
     }
   end
 
+  def size6() do
+    %@subject{
+      key: key2(),
+      left: %@subject{
+        key: key0(),
+        left: nil,
+        right: %@subject{
+          key: key1(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value1()
+        },
+        size: 2,
+        value: value0()
+      },
+      right: %@subject{
+        key: key4(),
+        left: %@subject{
+          key: key3(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value3()
+        },
+        right: %@subject{
+          key: key5(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value5()
+        },
+        size: 3,
+        value: value4()
+      },
+      size: 6,
+      value: value2()
+    }
+  end
+
   def value0(), do: "zero"
 
   def value1(), do: "one"
@@ -157,6 +199,8 @@ defmodule Boscage.PapalTreeTest do
 
   def value4(), do: "four"
 
+  def value5(), do: "five"
+
   setup do
     %{
       key0: key0(),
@@ -164,6 +208,7 @@ defmodule Boscage.PapalTreeTest do
       key2: key2(),
       key3: key3(),
       key4: key4(),
+      key5: key5(),
       shifted_size0: shifted_size0(),
       shifted_size1: shifted_size1(),
       shifted_size2: shifted_size2(),
@@ -173,11 +218,13 @@ defmodule Boscage.PapalTreeTest do
       size3: size3(),
       size4: size4(),
       size5: size5(),
+      size6: size6(),
       value0: value0(),
       value1: value1(),
       value2: value2(),
       value3: value3(),
-      value4: value4()
+      value4: value4(),
+      value5: value5(),
     }
   end
 
@@ -209,6 +256,12 @@ defmodule Boscage.PapalTreeTest do
     test "new max value to size 4 tree", c do
       expected = c.size5
       {:ok, actual} = @subject.insert(c.size4, c.key4, c.value4)
+      assert expected == actual
+    end
+
+    test "new max value to size 5 tree", c do
+      expected = c.size6
+      {:ok, actual} = @subject.insert(c.size5, c.key5, c.value5)
       assert expected == actual
     end
   end
