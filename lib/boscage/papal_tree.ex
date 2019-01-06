@@ -7,6 +7,12 @@ defmodule Boscage.PapalTree do
     :value
   ]
 
+  def insert(%__MODULE__{left: nil, right: nil, size: 0}, key, value) do
+    data = new()
+    center = struct!(data, key: key, value: value, size: 1)
+    {:ok, center}
+  end
+
   def new() do
     %__MODULE__{
       key: nil,

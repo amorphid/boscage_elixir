@@ -3,6 +3,33 @@ defmodule Boscage.PapalTreeTest do
 
   @subject Boscage.PapalTree
 
+  def key0(), do: 0
+
+  def size0(), do: @subject.new()
+
+  def size1() do
+    %@subject{key: key0(), value: value0(), size: 1}
+  end
+
+  def value0, do: "zero"
+
+  setup do
+    %{
+      key0: key0(),
+      size0: size0(),
+      size1: size1(),
+      value0: value0()
+    }
+  end
+
+  describe "&insert/3" do
+    test "size 0 tree", c do
+      expected = c.size1
+      {:ok, actual} = @subject.insert(c.size0, c.key0, c.value0)
+      assert expected == actual
+    end
+  end
+
   describe "&max/1" do
     test "size 1 tree" do
       key = 0
