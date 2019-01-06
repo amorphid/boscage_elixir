@@ -7,7 +7,11 @@ defmodule Boscage.PapalTree do
     :value
   ]
 
-  def insert(%__MODULE__{left: nil, right: %__MODULE__{} = right, size: 2} = center, key, value) do
+  def insert(
+        %__MODULE__{left: nil, right: %__MODULE__{} = right, size: 2} = center,
+        key,
+        value
+      ) do
     {:ok, left} = new() |> insert(center.key, center.value)
     center_key = right.key
     center_size = 3
@@ -26,7 +30,11 @@ defmodule Boscage.PapalTree do
     {:ok, center2}
   end
 
-  def insert(%__MODULE__{left: nil, right: nil, size: 1} = center, key, value) do
+  def insert(
+        %__MODULE__{left: nil, right: nil, size: 1} = center,
+        key,
+        value
+      ) do
     {:ok, right} = new() |> insert(key, value)
     center_size = 2
     center2 = struct!(center, right: right, size: center_size)
@@ -73,7 +81,10 @@ defmodule Boscage.PapalTree do
     {data.key, data.value}
   end
 
-  def pop(%__MODULE__{left: %__MODULE__{} = left, right: %__MODULE__{}, size: 3} = center) do
+  def pop(
+        %__MODULE__{left: %__MODULE__{} = left, right: %__MODULE__{}, size: 3} =
+          center
+      ) do
     {:ok, {popped, _}} = pop(center.right)
     left2 = nil
     center_key = left.key
@@ -103,6 +114,19 @@ defmodule Boscage.PapalTree do
 
   def pop(%__MODULE__{left: nil, right: nil, size: 1} = data) do
     {:ok, {{data.key, data.value}, new()}}
+  end
+
+  def pop(
+        %__MODULE__{
+          left: %__MODULE__{size: left_size},
+          right: %__MODULE__{size: right_size}
+        } = center
+      )
+      when right_size == left_size + 1 do
+    center_size = center.size - 1
+    {:ok, {popped, right}} = pop(center.right)
+    center2 = struct!(center, right: right, size: center_size)
+    {:ok, {popped, center2}}
   end
 
   # def search(%__MODULE__{key: key} = data, key) do

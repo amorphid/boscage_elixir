@@ -14,7 +14,14 @@ defmodule Boscage.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Boscage.Supervisor]
-    Supervisor.start_link(children, opts)
+    opts = [
+      strategy: :one_for_one,
+      name: Boscage.Supervisor
+    ]
+
+    Supervisor.start_link(
+      children,
+      opts
+    )
   end
 end
