@@ -3,6 +3,24 @@ defmodule Boscage.PapalTreeTest do
 
   @subject Boscage.PapalTree
 
+  describe "&delete/2" do
+    test "removes value for key" do
+      empty = @subject.new()
+      {key1, val1} = {:commander, "Data"}
+      {key2, val2} = {:doctor, "Crusher"}
+      {key3, val3} = {:captain, "Picard"}
+      {key4, val4} = {:admiral, "Janeway"}
+      {:ok, tree1} = @subject.insert(empty, key1, val1)
+      {:ok, tree2} = @subject.insert(tree1, key2, val2)
+      {:ok, tree3} = @subject.insert(tree2, key3, val3)
+      {:ok, tree4} = @subject.insert(tree3, key4, val4)
+      {:ok, ^tree3} = @subject.delete(tree4, key4)
+      {:ok, ^tree2} = @subject.delete(tree3, key3)
+      {:ok, ^tree1} = @subject.delete(tree2, key2)
+      {:ok, ^empty} = @subject.delete(tree1, key1)
+    end
+  end
+
   describe "&insert/3" do
     test "new key increases size" do
       empty = @subject.new()
