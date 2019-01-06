@@ -13,6 +13,34 @@ defmodule Boscage.PapalTreeTest do
 
   def key4(), do: 4
 
+  def shifted_size0(), do: @subject.new()
+
+  def shifted_size1() do
+    %@subject{
+      key: key1(),
+      left: nil,
+      right: nil,
+      size: 1,
+      value: value1()
+    }
+  end
+
+  def shifted_size2() do
+    %@subject{
+      key: key1(),
+      left: nil,
+      right: %@subject{
+        key: key2(),
+        left: nil,
+        right: nil,
+        size: 1,
+        value: value2()
+      },
+      size: 2,
+      value: value1()
+    }
+  end
+
   def size0(), do: @subject.new()
 
   def size1() do
@@ -136,6 +164,9 @@ defmodule Boscage.PapalTreeTest do
       key2: key2(),
       key3: key3(),
       key4: key4(),
+      shifted_size0: shifted_size0(),
+      shifted_size1: shifted_size1(),
+      shifted_size2: shifted_size2(),
       size0: size0(),
       size1: size1(),
       size2: size2(),
@@ -276,8 +307,20 @@ defmodule Boscage.PapalTreeTest do
 
   describe "&shift/1" do
     test "size 1 tree", c do
-      expected = {{c.key0, c.value0}, c.size0}
+      expected = {{c.key0, c.value0}, c.shifted_size0}
       {:ok, actual} = @subject.shift(c.size1)
+      assert expected == actual
+    end
+
+    test "size 2 tree", c do
+      expected = {{c.key0, c.value0}, c.shifted_size1}
+      {:ok, actual} = @subject.shift(c.size2)
+      assert expected == actual
+    end
+
+    test "size 3 tree", c do
+      expected = {{c.key0, c.value0}, c.shifted_size2}
+      {:ok, actual} = @subject.shift(c.size3)
       assert expected == actual
     end
   end

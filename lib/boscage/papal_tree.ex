@@ -149,8 +149,25 @@ defmodule Boscage.PapalTree do
   #   {:error, "key #{inspect(search_key)} not found"}
   # end
 
-  def shift(%__MODULE__{left: nil, right: nil, size: 1} = data) do
-    {:ok, {{data.key, data.value}, new()}}
+  def shift(%__MODULE__{left: nil, right: nil, size: 1} = center) do
+    {:ok, {{center.key, center.value}, new()}}
+  end
+
+  def shift(%__MODULE__{left: nil, right: %__MODULE__{}, size: 2} = center) do
+    popped = {center.key, center.value}
+    center = center.right
+    {:ok, {popped, center}}
+  end
+
+  def shift(
+        %__MODULE__{left: %__MODULE__{} = left, right: %__MODULE__{}, size: 3} =
+          center
+      ) do
+    popped = {left.key, left.value}
+    left = nil
+    center_size = center.size - 1
+    center2 = struct!(center, left: left, size: center_size)
+    {:ok, {popped, center2}}
   end
 
   def size(%__MODULE__{} = data) do
