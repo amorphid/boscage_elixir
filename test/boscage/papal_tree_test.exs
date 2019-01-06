@@ -11,6 +11,8 @@ defmodule Boscage.PapalTreeTest do
 
   def key3(), do: 3
 
+  def key4(), do: 4
+
   def size0(), do: @subject.new()
 
   def size1() do
@@ -83,6 +85,40 @@ defmodule Boscage.PapalTreeTest do
     }
   end
 
+  def size5() do
+    %@subject{
+      key: key2(),
+      left: %@subject{
+        key: key0(),
+        left: nil,
+        right: %@subject{
+          key: key1(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value1()
+        },
+        size: 1,
+        value: value0()
+      },
+      right: %@subject{
+        key: key3(),
+        left: nil,
+        right: %@subject{
+          key: key4(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value4()
+        },
+        size: 2,
+        value: value3()
+      },
+      size: 4,
+      value: value2()
+    }
+  end
+
   def value0(), do: "zero"
 
   def value1(), do: "one"
@@ -91,21 +127,26 @@ defmodule Boscage.PapalTreeTest do
 
   def value3(), do: "three"
 
+  def value4(), do: "four"
+
   setup do
     %{
       key0: key0(),
       key1: key1(),
       key2: key2(),
       key3: key3(),
+      key4: key4(),
       size0: size0(),
       size1: size1(),
       size2: size2(),
       size3: size3(),
       size4: size4(),
+      size5: size5(),
       value0: value0(),
       value1: value1(),
       value2: value2(),
-      value3: value3()
+      value3: value3(),
+      value4: value4()
     }
   end
 
