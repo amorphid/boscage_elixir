@@ -54,6 +54,10 @@ defmodule Boscage.PapalTree do
     {:ok, struct!(data, key: key2, value: value, size: size)}
   end
 
+  def delete(%__MODULE__{}, search_key) do
+    {:error, "key #{inspect(search_key)} not found"}
+  end
+
   def insert(%__MODULE__{size: 0} = data, key, value) do
     {:ok, struct!(data, key: key, value: value, size: 1)}
   end

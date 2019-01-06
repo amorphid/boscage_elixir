@@ -19,6 +19,13 @@ defmodule Boscage.PapalTreeTest do
       {:ok, ^tree1} = @subject.delete(tree2, key2)
       {:ok, ^empty} = @subject.delete(tree1, key1)
     end
+
+    test "returns error for missing key" do
+      key = :key
+      expected = {:error, "key #{inspect(key)} not found"}
+      actual = @subject.search(@subject.new(), key)
+      assert expected == actual
+    end
   end
 
   describe "&insert/3" do
