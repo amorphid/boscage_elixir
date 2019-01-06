@@ -82,6 +82,22 @@ defmodule Boscage.PapalTreeTest do
     end
   end
 
+  describe "&max/1" do
+    test "size 1 tree" do
+      tree =
+        %@subject{
+          key: 0,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: "zero"
+        }
+      expected = tree
+      actual = @subject.max(tree)
+      assert expected == actual
+    end
+  end
+
   describe "&search/2" do
     test "returns value for key" do
       empty = @subject.new()
