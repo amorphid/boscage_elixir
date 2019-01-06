@@ -149,6 +149,10 @@ defmodule Boscage.PapalTree do
   #   {:error, "key #{inspect(search_key)} not found"}
   # end
 
+  def shift(%__MODULE__{left: nil, right: nil, size: 1} = data) do
+    {:ok, {{data.key, data.value}, new()}}
+  end
+
   def size(%__MODULE__{} = data) do
     data.size
   end

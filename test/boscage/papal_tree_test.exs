@@ -274,6 +274,14 @@ defmodule Boscage.PapalTreeTest do
   #   end
   # end
 
+  describe "&shift/1" do
+    test "size 1 tree", c do
+      expected = {{c.key0, c.value0}, c.size0}
+      {:ok, actual} = @subject.shift(c.size1)
+      assert expected == actual
+    end
+  end
+
   describe "&size/1" do
     test "empty" do
       assert @subject.size(@subject.new()) == 0
