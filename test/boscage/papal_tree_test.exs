@@ -113,6 +113,39 @@ defmodule Boscage.PapalTreeTest do
       actual = @subject.insert(tree2, key3, val3)
       assert expected == actual
     end
+
+    test "Adding keys 2 to 0 in that order returns balanced tree" do
+      empty = @subject.new()
+      {key1, val1} = {2, "two"}
+      {key2, val2} = {1, "one"}
+      {key3, val3} = {0, "zero"}
+      {:ok, tree1} = @subject.insert(empty, key1, val1)
+      {:ok, tree2} = @subject.insert(tree1, key2, val2)
+
+      tree3 = %@subject{
+        key: 1,
+        left: %@subject{
+          key: 0,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: "zero"
+        },
+        right: %@subject{
+          key: 2,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: "two"
+        },
+        size: 3,
+        value: "one"
+      }
+
+      expected = {:ok, tree3}
+      actual = @subject.insert(tree2, key3, val3)
+      assert expected == actual
+    end
   end
 
   describe "&max/1" do
