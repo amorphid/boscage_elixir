@@ -114,7 +114,7 @@ defmodule Boscage.PapalTree do
         key,
         value
       ) do
-    {:ok, left2} = new() |> insert(new_key, value)
+    {:ok, left2} = new() |> insert(key, value)
     center_key = left.key
     center_size = center.size + 1
     center_value = left.value
@@ -149,7 +149,7 @@ defmodule Boscage.PapalTree do
   end
 
   def max(%__MODULE__{} = data) do
-    data
+    {data.key, data.value}
   end
 
   def search(%__MODULE__{key: key} = data, key) do
