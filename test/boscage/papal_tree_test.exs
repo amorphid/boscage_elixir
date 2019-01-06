@@ -195,6 +195,23 @@ defmodule Boscage.PapalTreeTest do
     end
   end
 
+  describe "&pop/1" do
+    test "size 1 tree" do
+      key = 0
+      val = "zero"
+      size1 = %@subject{
+        key: key,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: val
+      }
+      expected = {{key, val}, @subject.new()}
+      {:ok, actual} = @subject.pop(size1)
+      assert expected == actual
+    end
+  end
+
   describe "&search/2" do
     test "returns value for key" do
       empty = @subject.new()

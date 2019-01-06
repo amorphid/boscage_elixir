@@ -152,6 +152,10 @@ defmodule Boscage.PapalTree do
     {data.key, data.value}
   end
 
+  def pop(%__MODULE__{left: nil, right: nil, size: 1} = data) do
+    {:ok, {{data.key, data.value}, new()}}
+  end
+
   def search(%__MODULE__{key: key} = data, key) do
     data.value
   end
