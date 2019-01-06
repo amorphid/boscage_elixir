@@ -199,6 +199,7 @@ defmodule Boscage.PapalTreeTest do
     test "size 1 tree" do
       key = 0
       val = "zero"
+
       size1 = %@subject{
         key: key,
         left: nil,
@@ -206,8 +207,40 @@ defmodule Boscage.PapalTreeTest do
         size: 1,
         value: val
       }
+
       expected = {{key, val}, @subject.new()}
       {:ok, actual} = @subject.pop(size1)
+      assert expected == actual
+    end
+
+    test "size 2 tree w/ size 1 right" do
+      {key1, val1} = {0, "zero"}
+      {key2, val2} = {1, "one"}
+
+      size2 = %@subject{
+        key: key1,
+        left: nil,
+        right: %@subject{
+          key: key2,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: val2
+        },
+        size: 2,
+        value: val1
+      }
+
+      size1 = %@subject{
+        key: key1,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: val1
+      }
+
+      expected = {{key2, val2}, size1}
+      {:ok, actual} = @subject.pop(size2)
       assert expected == actual
     end
   end

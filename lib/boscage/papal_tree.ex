@@ -152,6 +152,14 @@ defmodule Boscage.PapalTree do
     {data.key, data.value}
   end
 
+  def pop(%__MODULE__{left: nil, right: %__MODULE__{}, size: 2} = data) do
+    {:ok, {popped, _}} = pop(data.right)
+    right = nil
+    size = 1
+    data2 = struct!(data, right: right, size: size)
+    {:ok, {popped, data2}}
+  end
+
   def pop(%__MODULE__{left: nil, right: nil, size: 1} = data) do
     {:ok, {{data.key, data.value}, new()}}
   end
