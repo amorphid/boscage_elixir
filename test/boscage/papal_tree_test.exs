@@ -149,8 +149,14 @@ defmodule Boscage.PapalTreeTest do
     end
 
     test "size 2 tree w/ size 1 right", c do
-      expected = {{c.key1, c.value1}, size1}
+      expected = {{c.key1, c.value1}, c.size1}
       {:ok, actual} = @subject.pop(c.size2)
+      assert expected == actual
+    end
+
+    test "size 3 tree", c do
+      expected = {{c.key2, c.value2}, c.size2}
+      {:ok, actual} = @subject.pop(c.size3)
       assert expected == actual
     end
   end

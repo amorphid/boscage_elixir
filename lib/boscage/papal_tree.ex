@@ -57,6 +57,26 @@ defmodule Boscage.PapalTree do
     {data.key, data.value}
   end
 
+  def pop(%__MODULE__{left: %__MODULE__{} = left, right: %__MODULE__{}, size: 3} = center) do
+    {:ok, {popped, _}} = pop(center.right)
+    left2 = nil
+    center_key = left.key
+    center_value = left.value
+    center_size = 2
+    {:ok, right} = new() |> insert(center.key, center.value)
+
+    center2 =
+      struct!(center,
+        key: center_key,
+        left: left2,
+        right: right,
+        size: center_size,
+        value: center_value
+      )
+
+    {:ok, {popped, center2}}
+  end
+
   def pop(%__MODULE__{left: nil, right: %__MODULE__{}, size: 2} = data) do
     {:ok, {popped, _}} = pop(data.right)
     right = nil
