@@ -96,6 +96,10 @@ defmodule Boscage.PapalTree do
     {:ok, struct!(data, left: left2, size: increased_size)}
   end
 
+  def max(%__MODULE__{right: %__MODULE__{}} = data) do
+    max(data.right)
+  end
+
   def max(%__MODULE__{} = data) do
     data
   end
