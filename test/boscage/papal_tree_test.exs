@@ -84,14 +84,14 @@ defmodule Boscage.PapalTreeTest do
 
   describe "&max/1" do
     test "size 1 tree" do
-      tree =
-        %@subject{
-          key: 0,
-          left: nil,
-          right: nil,
-          size: 1,
-          value: "zero"
-        }
+      tree = %@subject{
+        key: 0,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: "zero"
+      }
+
       expected = tree
       actual = @subject.max(tree)
       assert expected == actual
@@ -105,20 +105,21 @@ defmodule Boscage.PapalTreeTest do
         size: 1,
         value: "two"
       }
-      tree =
-        %@subject{
-          key: 1,
-          left: %@subject{
-            key: 0,
-            left: nil,
-            right: nil,
-            size: 1,
-            value: "zero"
-          },
-          right: right,
-          size: 3,
-          value: "one"
-        }
+
+      tree = %@subject{
+        key: 1,
+        left: %@subject{
+          key: 0,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: "zero"
+        },
+        right: right,
+        size: 3,
+        value: "one"
+      }
+
       expected = right
       actual = @subject.max(tree)
       assert expected == actual
