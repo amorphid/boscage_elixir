@@ -297,6 +297,40 @@ defmodule Boscage.PapalTreeTest do
     }
   end
 
+  def tree_1_to_5() do
+    %@subject{
+      key: key3(),
+      left: %@subject{
+        key: key1(),
+        left: nil,
+        right: %@subject{
+          key: key2(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value2()
+        },
+        size: 2,
+        value: value1()
+      },
+      right: %@subject{
+        key: key4(),
+        left: nil,
+        right: %@subject{
+          key: key5(),
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value5()
+        },
+        size: 2,
+        value: value4()
+      },
+      size: 5,
+      value: value3()
+    }
+  end
+
   def value0(), do: "zero"
 
   def value1(), do: "one"
@@ -335,9 +369,10 @@ defmodule Boscage.PapalTreeTest do
       size7: size7(),
       tree_0_to_0: size1(),
       tree_0_to_1: size2(),
-      tree_0_to_5: size5(),
-      tree_0_to_6: size6(),
+      tree_0_to_4: size5(),
+      tree_0_to_5: size6(),
       tree_1_to_1: tree_1_to_1(),
+      tree_1_to_5: tree_1_to_5(),
       value0: value0(),
       value1: value1(),
       value2: value2(),
@@ -477,36 +512,11 @@ defmodule Boscage.PapalTreeTest do
     end
 
     test "size 6 tree", c do
-      expected = {{c.key5, c.value5}, c.tree_0_to_5}
-      {:ok, actual} = @subject.pop(c.tree_0_to_6)
+      expected = {{c.key5, c.value5}, c.tree_0_to_4}
+      {:ok, actual} = @subject.pop(c.tree_0_to_5)
       assert expected == actual
     end
   end
-
-  # describe "&search/2" do
-  #   test "returns value for key" do
-  #     empty = @subject.new()
-  #     {key1, val1} = {:commander, "Data"}
-  #     {key2, val2} = {:doctor, "Crusher"}
-  #     {key3, val3} = {:captain, "Picard"}
-  #     {key4, val4} = {:admiral, "Janeway"}
-  #     {:ok, tree1} = @subject.insert(empty, :commander, "Data")
-  #     {:ok, tree2} = @subject.insert(tree1, :doctor, "Crusher")
-  #     {:ok, tree3} = @subject.insert(tree2, :captain, "Picard")
-  #     {:ok, tree4} = @subject.insert(tree3, :admiral, "Janeway")
-  #     assert @subject.search(tree4, key1) == val1
-  #     assert @subject.search(tree4, key2) == val2
-  #     assert @subject.search(tree4, key3) == val3
-  #     assert @subject.search(tree4, key4) == val4
-  #   end
-  #
-  #   test "returns error for missing key" do
-  #     key = :key
-  #     expected = {:error, "key #{inspect(key)} not found"}
-  #     actual = @subject.search(@subject.new(), key)
-  #     assert expected == actual
-  #   end
-  # end
 
   describe "&shift/1" do
     test "size 1 tree", c do
@@ -536,6 +546,12 @@ defmodule Boscage.PapalTreeTest do
     test "size 5 tree", c do
       expected = {{c.key0, c.value0}, c.shifted_size4}
       {:ok, actual} = @subject.shift(c.size5)
+      assert expected == actual
+    end
+
+    test "size 6 tree", c do
+      expected = {{c.key0, c.value0}, c.tree_1_to_5}
+      {:ok, actual} = @subject.shift(c.tree_0_to_5)
       assert expected == actual
     end
   end
