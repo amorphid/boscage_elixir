@@ -181,20 +181,44 @@ defmodule Boscage.PapalTree do
   end
 
   def shift(%__MODULE__{left: nil, right: %__MODULE__{}, size: 2} = center) do
-    popped = {center.key, center.value}
+    shifted = {center.key, center.value}
     center = center.right
-    {:ok, {popped, center}}
+    {:ok, {shifted, center}}
   end
 
   def shift(
         %__MODULE__{left: %__MODULE__{} = left, right: %__MODULE__{}, size: 3} =
           center
       ) do
-    popped = {left.key, left.value}
+    shifted = {left.key, left.value}
     left = nil
     center_size = center.size - 1
     center2 = struct!(center, left: left, size: center_size)
-    {:ok, {popped, center2}}
+    {:ok, {shifted, center2}}
+  end
+
+  def shift(
+        %__MODULE__{
+          left: %__MODULE__{size: left_size},
+          right: %__MODULE__{size: right_size}
+        } = center
+      )
+      when right_size == left_size + 1 do
+    {:ok, {shifted, left2}} = shift(center.left)
+    {:ok, {{center_key, center_value}, right2}} = shift(center.right)
+    {:ok, left3} = insert(left2, center.key, center.value)
+    center_size = center.size - 1
+
+    center2 =
+      struct!(center,
+        key: center_key,
+        left: left3,
+        right: right2,
+        size: center_size,
+        value: center_value
+      )
+
+    {:ok, {shifted, center2}}
   end
 
   def size(%__MODULE__{} = data) do
