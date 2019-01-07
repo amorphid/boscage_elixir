@@ -221,6 +221,18 @@ defmodule Boscage.PapalTree do
     {:ok, {shifted, center2}}
   end
 
+  def shift(
+        %__MODULE__{
+          left: %__MODULE__{size: size},
+          right: %__MODULE__{size: size}
+        } = center
+      ) do
+    {:ok, {shifted, left2}} = shift(center.left)
+    center_size = center.size - 1
+    center2 = struct!(center, left: left2, size: center_size)
+    {:ok, {shifted, center2}}
+  end
+
   def size(%__MODULE__{} = data) do
     data.size
   end
