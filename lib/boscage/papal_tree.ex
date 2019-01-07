@@ -8,15 +8,21 @@ defmodule Boscage.PapalTree do
   ]
 
   def insert(
-        %__MODULE__{left: nil, right: %__MODULE__{} = right, size: 2} = center,
-        key,
+        %__MODULE__{
+          key: stored_key,
+          left: nil,
+          right: %__MODULE__{} = right,
+          size: 2
+        } = center,
+        insert_key,
         value
-      ) do
+      )
+      when insert_key > stored_key do
     {:ok, left} = new() |> insert(center.key, center.value)
     center_key = right.key
     center_size = 3
     center_value = right.value
-    {:ok, right2} = new() |> insert(key, value)
+    {:ok, right2} = new() |> insert(insert_key, value)
 
     center2 =
       struct!(center,
@@ -27,6 +33,19 @@ defmodule Boscage.PapalTree do
         value: center_value
       )
 
+    {:ok, center2}
+  end
+
+  def insert(
+        %__MODULE__{key: stored_key, left: nil, right: %__MODULE__{}, size: 2} =
+          center,
+        insert_key,
+        value
+      )
+      when insert_key <= stored_key do
+    {:ok, left2} = new() |> insert(insert_key, value)
+    center_size = 3
+    center2 = struct!(center, left: left2, size: center_size)
     {:ok, center2}
   end
 

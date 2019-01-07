@@ -331,6 +331,90 @@ defmodule Boscage.PapalTreeTest do
     }
   end
 
+  def tree(2, key_0, value_0, key_1, value_1) do
+    %@subject{
+      key: key_0,
+      left: nil,
+      right: %@subject{
+        key: key_1,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: value_1
+      },
+      size: 2,
+      value: value_0
+    }
+  end
+
+  def tree(3, key_0, value_0, key_1, value_1, key_2, value_2) do
+    %@subject{
+      key: key_1,
+      left: %@subject{
+        key: key_0,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: value_0
+      },
+      right: %@subject{
+        key: key_2,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: value_2
+      },
+      size: 3,
+      value: value_1
+    }
+  end
+
+  def tree(
+        5,
+        key_0,
+        value_0,
+        key_1,
+        value_1,
+        key_2,
+        value_2,
+        key_3,
+        value_3,
+        key_4,
+        value_4
+      ) do
+    %@subject{
+      key: key_2,
+      left: %@subject{
+        key: key_0,
+        left: nil,
+        right: %@subject{
+          key: key_1,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_1
+        },
+        size: 2,
+        value: value_0
+      },
+      right: %@subject{
+        key: key_3,
+        left: nil,
+        right: %@subject{
+          key: key_4,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_4
+        },
+        size: 2,
+        value: value_3
+      },
+      size: 5,
+      value: value_2
+    }
+  end
+
   def value0(), do: "zero"
 
   def value1(), do: "one"
@@ -369,8 +453,25 @@ defmodule Boscage.PapalTreeTest do
       size7: size7(),
       tree_0_to_0: size1(),
       tree_0_to_1: size2(),
-      tree_0_to_4: size5(),
+      tree_0_to_2:
+        tree(3, key0(), value0(), key1(), value1(), key2(), value2()),
+      tree_0_to_4:
+        tree(
+          5,
+          key0(),
+          value0(),
+          key1(),
+          value1(),
+          key2(),
+          value2(),
+          key3(),
+          value3(),
+          key4(),
+          value4()
+        ),
       tree_0_to_5: size6(),
+      tree_0_to_6: size7(),
+      tree_1_to_2: tree(2, key1(), value1(), key2(), value2()),
       tree_1_to_1: tree_1_to_1(),
       tree_1_to_5: tree_1_to_5(),
       value0: value0(),
@@ -399,6 +500,12 @@ defmodule Boscage.PapalTreeTest do
     test "new max value to size 1 tree", c do
       expected = c.tree_0_to_1
       {:ok, actual} = @subject.insert(c.tree_0_to_0, c.key1, c.value1)
+      assert expected == actual
+    end
+
+    test "new min value to size 2 tree", c do
+      expected = c.tree_0_to_2
+      {:ok, actual} = @subject.insert(c.tree_1_to_2, c.key0, c.value0)
       assert expected == actual
     end
 
@@ -514,6 +621,12 @@ defmodule Boscage.PapalTreeTest do
     test "size 6 tree", c do
       expected = {{c.key5, c.value5}, c.tree_0_to_4}
       {:ok, actual} = @subject.pop(c.tree_0_to_5)
+      assert expected == actual
+    end
+
+    test "size 7 tree", c do
+      expected = {{c.key6, c.value6}, c.tree_0_to_5}
+      {:ok, actual} = @subject.pop(c.tree_0_to_6)
       assert expected == actual
     end
   end
