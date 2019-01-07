@@ -365,12 +365,6 @@ defmodule Boscage.PapalTreeTest do
       assert expected == actual
     end
 
-    # test "new max value to size 1 tree", c do
-    #   expected = c.size2
-    #   {:ok, actual} = @subject.insert(c.size1, c.key1, c.value1)
-    #   assert expected == actual
-    # end
-
     test "new max value to size 2 tree", c do
       expected = c.size3
       {:ok, actual} = @subject.insert(c.size2, c.key2, c.value2)

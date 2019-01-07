@@ -30,19 +30,37 @@ defmodule Boscage.PapalTree do
     {:ok, center2}
   end
 
-  def insert(%__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,insert_key,value) when insert_key > search_key do
+  def insert(
+        %__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,
+        insert_key,
+        value
+      )
+      when insert_key > search_key do
     {:ok, right} = new() |> insert(insert_key, value)
     center_size = 2
     center2 = struct!(center, right: right, size: center_size)
     {:ok, center2}
   end
 
-  def insert(%__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,insert_key,insert_value) when insert_key <= search_key do
+  def insert(
+        %__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,
+        insert_key,
+        insert_value
+      )
+      when insert_key <= search_key do
     center_key = insert_key
     center_size = 2
     center_value = insert_value
     {:ok, right} = new() |> insert(center.key, center.value)
-    center2 = struct!(center, key: center_key, right: right, size: center_size, value: center_value)
+
+    center2 =
+      struct!(center,
+        key: center_key,
+        right: right,
+        size: center_size,
+        value: center_value
+      )
+
     {:ok, center2}
   end
 
@@ -161,36 +179,28 @@ defmodule Boscage.PapalTree do
     {:ok, {popped, center2}}
   end
 
-  def pop(%__MODULE__{left: %__MODULE__{size: size},right: %__MODULE__{size: size}} = center) do
+  def pop(
+        %__MODULE__{
+          left: %__MODULE__{size: size},
+          right: %__MODULE__{size: size}
+        } = center
+      ) do
     {:ok, {popped, right2}} = pop(center.right)
     {:ok, {{center_key, center_value}, left2}} = pop(center.left)
     center_size = center.size - 1
-    IO.inspect right2
     {:ok, right3} = insert(right2, center.key, center.value)
-    center2 = struct!(center, key: center_key, left: left2, right: right3, size: center_size, value: center_value)
-    IO.inspect center2.right
+
+    center2 =
+      struct!(center,
+        key: center_key,
+        left: left2,
+        right: right3,
+        size: center_size,
+        value: center_value
+      )
+
     {:ok, {popped, center2}}
   end
-
-  # def search(%__MODULE__{key: key} = data, key) do
-  #   data.value
-  # end
-  #
-  # def search(
-  #       %__MODULE__{key: stored_key, right: %__MODULE__{} = right},
-  #       search_key
-  #     )
-  #     when search_key > stored_key do
-  #   search(right, search_key)
-  # end
-  #
-  # def search(%__MODULE__{left: %__MODULE__{} = left}, search_key) do
-  #   search(left, search_key)
-  # end
-  #
-  # def search(%__MODULE__{} = _, search_key) do
-  #   {:error, "key #{inspect(search_key)} not found"}
-  # end
 
   def shift(%__MODULE__{left: nil, right: nil, size: 1} = center) do
     {:ok, {{center.key, center.value}, new()}}
