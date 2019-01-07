@@ -30,14 +30,19 @@ defmodule Boscage.PapalTree do
     {:ok, center2}
   end
 
-  def insert(
-        %__MODULE__{left: nil, right: nil, size: 1} = center,
-        key,
-        value
-      ) do
-    {:ok, right} = new() |> insert(key, value)
+  def insert(%__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,insert_key,value) when insert_key > search_key do
+    {:ok, right} = new() |> insert(insert_key, value)
     center_size = 2
     center2 = struct!(center, right: right, size: center_size)
+    {:ok, center2}
+  end
+
+  def insert(%__MODULE__{key: search_key, left: nil, right: nil, size: 1} = center,insert_key,insert_value) when insert_key <= search_key do
+    center_key = insert_key
+    center_size = 2
+    center_value = insert_value
+    {:ok, right} = new() |> insert(center.key, center.value)
+    center2 = struct!(center, key: center_key, right: right, size: center_size, value: center_value)
     {:ok, center2}
   end
 
@@ -153,6 +158,17 @@ defmodule Boscage.PapalTree do
     center_size = center.size - 1
     {:ok, {popped, right}} = pop(center.right)
     center2 = struct!(center, right: right, size: center_size)
+    {:ok, {popped, center2}}
+  end
+
+  def pop(%__MODULE__{left: %__MODULE__{size: size},right: %__MODULE__{size: size}} = center) do
+    {:ok, {popped, right2}} = pop(center.right)
+    {:ok, {{center_key, center_value}, left2}} = pop(center.left)
+    center_size = center.size - 1
+    IO.inspect right2
+    {:ok, right3} = insert(right2, center.key, center.value)
+    center2 = struct!(center, key: center_key, left: left2, right: right3, size: center_size, value: center_value)
+    IO.inspect center2.right
     {:ok, {popped, center2}}
   end
 
