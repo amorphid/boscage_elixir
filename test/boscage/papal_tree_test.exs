@@ -335,6 +335,8 @@ defmodule Boscage.PapalTreeTest do
       size7: size7(),
       tree_0_to_0: size1(),
       tree_0_to_1: size2(),
+      tree_0_to_5: size5(),
+      tree_0_to_6: size6(),
       tree_1_to_1: tree_1_to_1(),
       value0: value0(),
       value1: value1(),
@@ -471,6 +473,12 @@ defmodule Boscage.PapalTreeTest do
     test "size 5 tree", c do
       expected = {{c.key4, c.value4}, c.size4}
       {:ok, actual} = @subject.pop(c.size5)
+      assert expected == actual
+    end
+
+    test "size 6 tree", c do
+      expected = {{c.key5, c.value5}, c.tree_0_to_5}
+      {:ok, actual} = @subject.pop(c.tree_0_to_6)
       assert expected == actual
     end
   end
