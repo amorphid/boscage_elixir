@@ -3,332 +3,44 @@ defmodule Boscage.PapalTreeTest do
 
   @subject Boscage.PapalTree
 
-  def key0(), do: 0
+  def empty_tree(), do: @subject.new()
 
-  def key1(), do: 1
+  def key_0(), do: 0
 
-  def key2(), do: 2
+  def key_1(), do: 1
 
-  def key3(), do: 3
+  def key_2(), do: 2
 
-  def key4(), do: 4
+  def key_3(), do: 3
 
-  def key5(), do: 5
+  def key_4(), do: 4
 
-  def key6(), do: 6
+  def key_5(), do: 5
 
-  def shifted_size0(), do: @subject.new()
-
-  def shifted_size1() do
-    %@subject{
-      key: key1(),
-      left: nil,
-      right: nil,
-      size: 1,
-      value: value1()
-    }
-  end
-
-  def shifted_size2() do
-    %@subject{
-      key: key1(),
-      left: nil,
-      right: %@subject{
-        key: key2(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value2()
-      },
-      size: 2,
-      value: value1()
-    }
-  end
-
-  def shifted_size3() do
-    %@subject{
-      key: key2(),
-      left: %@subject{
-        key: key1(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value1()
-      },
-      right: %@subject{
-        key: key3(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value3()
-      },
-      size: 3,
-      value: value2()
-    }
-  end
-
-  def shifted_size4() do
-    %@subject{
-      key: key2(),
-      left: %@subject{
-        key: key1(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value1()
-      },
-      right: %@subject{
-        key: key3(),
-        left: nil,
-        right: %@subject{
-          key: key4(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value4()
-        },
-        size: 2,
-        value: value3()
-      },
-      size: 4,
-      value: value2()
-    }
-  end
-
-  def size0(), do: @subject.new()
-
-  def size1() do
-    %@subject{key: key0(), value: value0(), size: 1}
-  end
-
-  def size2() do
-    %@subject{
-      key: key0(),
-      left: nil,
-      right: %@subject{
-        key: key1(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value1()
-      },
-      size: 2,
-      value: value0()
-    }
-  end
-
-  def size3() do
-    %@subject{
-      key: key1(),
-      left: %@subject{
-        key: key0(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value0()
-      },
-      right: %@subject{
-        key: key2(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value2()
-      },
-      size: 3,
-      value: value1()
-    }
-  end
-
-  def size4() do
-    %@subject{
-      key: key1(),
-      left: %@subject{
-        key: key0(),
-        left: nil,
-        right: nil,
-        size: 1,
-        value: value0()
-      },
-      right: %@subject{
-        key: key2(),
-        left: nil,
-        right: %@subject{
-          key: key3(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value3()
-        },
-        size: 2,
-        value: value2()
-      },
-      size: 4,
-      value: value1()
-    }
-  end
-
-  def size5() do
-    %@subject{
-      key: key2(),
-      left: %@subject{
-        key: key0(),
-        left: nil,
-        right: %@subject{
-          key: key1(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value1()
-        },
-        size: 2,
-        value: value0()
-      },
-      right: %@subject{
-        key: key3(),
-        left: nil,
-        right: %@subject{
-          key: key4(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value4()
-        },
-        size: 2,
-        value: value3()
-      },
-      size: 5,
-      value: value2()
-    }
-  end
-
-  def size6() do
-    %@subject{
-      key: key2(),
-      left: %@subject{
-        key: key0(),
-        left: nil,
-        right: %@subject{
-          key: key1(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value1()
-        },
-        size: 2,
-        value: value0()
-      },
-      right: %@subject{
-        key: key4(),
-        left: %@subject{
-          key: key3(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value3()
-        },
-        right: %@subject{
-          key: key5(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value5()
-        },
-        size: 3,
-        value: value4()
-      },
-      size: 6,
-      value: value2()
-    }
-  end
-
-  def size7() do
-    %@subject{
-      key: key3(),
-      left: %@subject{
-        key: key1(),
-        left: %@subject{
-          key: key0(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value0()
-        },
-        right: %@subject{
-          key: key2(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value2()
-        },
-        size: 3,
-        value: value1()
-      },
-      right: %@subject{
-        key: key5(),
-        left: %@subject{
-          key: key4(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value4()
-        },
-        right: %@subject{
-          key: key6(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value6()
-        },
-        size: 3,
-        value: value5()
-      },
-      size: 7,
-      value: value3()
-    }
-  end
+  def key_6(), do: 6
 
   def tree_1_to_1() do
-    %@subject{
-      key: key1(),
-      left: nil,
-      right: nil,
-      size: 1,
-      value: value1()
-    }
+    tree(1, key_1(), value_1())
   end
 
   def tree_1_to_5() do
-    %@subject{
-      key: key3(),
-      left: %@subject{
-        key: key1(),
-        left: nil,
-        right: %@subject{
-          key: key2(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value2()
-        },
-        size: 2,
-        value: value1()
-      },
-      right: %@subject{
-        key: key4(),
-        left: nil,
-        right: %@subject{
-          key: key5(),
-          left: nil,
-          right: nil,
-          size: 1,
-          value: value5()
-        },
-        size: 2,
-        value: value4()
-      },
-      size: 5,
-      value: value3()
-    }
+    tree(
+      5,
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4(),
+      key_5(),
+      value_5()
+    )
+  end
+
+  def tree(1, key_0, value_0) do
+    %@subject{key: key_0, value: value_0, size: 1}
   end
 
   def tree(2, key_0, value_0, key_1, value_1) do
@@ -365,6 +77,34 @@ defmodule Boscage.PapalTreeTest do
         value: value_2
       },
       size: 3,
+      value: value_1
+    }
+  end
+
+  def tree(4, key_0, value_0, key_1, value_1, key_2, value_2, key_3, value_3) do
+    %@subject{
+      key: key_1,
+      left: %@subject{
+        key: key_0,
+        left: nil,
+        right: nil,
+        size: 1,
+        value: value_0
+      },
+      right: %@subject{
+        key: key_2,
+        left: nil,
+        right: %@subject{
+          key: key_3,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_3
+        },
+        size: 2,
+        value: value_2
+      },
+      size: 4,
       value: value_1
     }
   end
@@ -415,127 +155,316 @@ defmodule Boscage.PapalTreeTest do
     }
   end
 
-  def value0(), do: "zero"
+  def tree(
+        6,
+        key_0,
+        value_0,
+        key_1,
+        value_1,
+        key_2,
+        value_2,
+        key_3,
+        value_3,
+        key_4,
+        value_4,
+        key_5,
+        value_5
+      ) do
+    %@subject{
+      key: key_2,
+      left: %@subject{
+        key: key_0,
+        left: nil,
+        right: %@subject{
+          key: key_1,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_1
+        },
+        size: 2,
+        value: value_0
+      },
+      right: %@subject{
+        key: key_4,
+        left: %@subject{
+          key: key_3,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_3
+        },
+        right: %@subject{
+          key: key_5,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_5
+        },
+        size: 3,
+        value: value_4
+      },
+      size: 6,
+      value: value_2
+    }
+  end
 
-  def value1(), do: "one"
+  def tree(
+        7,
+        key_0,
+        value_0,
+        key_1,
+        value_1,
+        key_2,
+        value_2,
+        key_3,
+        value_3,
+        key_4,
+        value_4,
+        key_5,
+        value_5,
+        key_6,
+        value_6
+      ) do
+    %@subject{
+      key: key_3,
+      left: %@subject{
+        key: key_1,
+        left: %@subject{
+          key: key_0,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_0
+        },
+        right: %@subject{
+          key: key_2,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_2
+        },
+        size: 3,
+        value: value_1
+      },
+      right: %@subject{
+        key: key_5,
+        left: %@subject{
+          key: key_4,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_4
+        },
+        right: %@subject{
+          key: key_6,
+          left: nil,
+          right: nil,
+          size: 1,
+          value: value_6
+        },
+        size: 3,
+        value: value_5
+      },
+      size: 7,
+      value: value_3
+    }
+  end
 
-  def value2(), do: "two"
+  def tree_0_to_0(), do: tree(1, key_0(), value_0())
 
-  def value3(), do: "three"
+  def tree_0_to_1(), do: tree(2, key_0(), value_0(), key_1(), value_1())
 
-  def value4(), do: "four"
+  def tree_0_to_2() do
+    tree(3, key_0(), value_0(), key_1(), value_1(), key_2(), value_2())
+  end
 
-  def value5(), do: "five"
+  def tree_0_to_3() do
+    tree(
+      4,
+      key_0(),
+      value_0(),
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3()
+    )
+  end
 
-  def value6(), do: "six"
+  def tree_0_to_4() do
+    tree(
+      5,
+      key_0(),
+      value_0(),
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4()
+    )
+  end
+
+  def tree_0_to_5() do
+    tree(
+      6,
+      key_0(),
+      value_0(),
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4(),
+      key_5(),
+      value_5()
+    )
+  end
+
+  def tree_0_to_6() do
+    tree(
+      7,
+      key_0(),
+      value_0(),
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4(),
+      key_5(),
+      value_5(),
+      key_6(),
+      value_6()
+    )
+  end
+
+  def tree_1_to_2(), do: tree(2, key_1(), value_1(), key_2(), value_2())
+
+  def tree_1_to_3() do
+    tree(3, key_1(), value_1(), key_2(), value_2(), key_3(), value_3())
+  end
+
+  def tree_1_to_4() do
+    tree(
+      4,
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4()
+    )
+  end
+
+  def value_0(), do: "zero"
+
+  def value_1(), do: "one"
+
+  def value_2(), do: "two"
+
+  def value_3(), do: "three"
+
+  def value_4(), do: "four"
+
+  def value_5(), do: "five"
+
+  def value_6(), do: "six"
 
   setup do
     %{
-      key0: key0(),
-      key1: key1(),
-      key2: key2(),
-      key3: key3(),
-      key4: key4(),
-      key5: key5(),
-      key6: key6(),
-      shifted_size0: shifted_size0(),
-      shifted_size1: shifted_size1(),
-      shifted_size2: shifted_size2(),
-      shifted_size3: shifted_size3(),
-      shifted_size4: shifted_size4(),
-      size0: size0(),
-      size1: size1(),
-      size2: size2(),
-      size3: size3(),
-      size4: size4(),
-      size5: size5(),
-      size6: size6(),
-      size7: size7(),
-      tree_0_to_0: size1(),
-      tree_0_to_1: size2(),
-      tree_0_to_2:
-        tree(3, key0(), value0(), key1(), value1(), key2(), value2()),
-      tree_0_to_4:
-        tree(
-          5,
-          key0(),
-          value0(),
-          key1(),
-          value1(),
-          key2(),
-          value2(),
-          key3(),
-          value3(),
-          key4(),
-          value4()
-        ),
-      tree_0_to_5: size6(),
-      tree_0_to_6: size7(),
-      tree_1_to_2: tree(2, key1(), value1(), key2(), value2()),
+      empty_tree: empty_tree(),
+      key_0: key_0(),
+      key_1: key_1(),
+      key_2: key_2(),
+      key_3: key_3(),
+      key_4: key_4(),
+      key_5: key_5(),
+      key_6: key_6(),
+      tree_0_to_0: tree_0_to_0(),
+      tree_0_to_1: tree_0_to_1(),
+      tree_0_to_2: tree_0_to_2(),
+      tree_0_to_3: tree_0_to_3(),
+      tree_0_to_4: tree_0_to_4(),
+      tree_0_to_5: tree_0_to_5(),
+      tree_0_to_6: tree_0_to_6(),
+      tree_1_to_2: tree_1_to_2(),
       tree_1_to_1: tree_1_to_1(),
+      tree_1_to_3: tree_1_to_3(),
+      tree_1_to_4: tree_1_to_4(),
       tree_1_to_5: tree_1_to_5(),
-      value0: value0(),
-      value1: value1(),
-      value2: value2(),
-      value3: value3(),
-      value4: value4(),
-      value5: value5(),
-      value6: value6()
+      value_0: value_0(),
+      value_1: value_1(),
+      value_2: value_2(),
+      value_3: value_3(),
+      value_4: value_4(),
+      value_5: value_5(),
+      value_6: value_6()
     }
   end
 
   describe "&insert/3" do
     test "size 0 tree", c do
-      expected = c.size1
-      {:ok, actual} = @subject.insert(c.size0, c.key0, c.value0)
+      expected = c.tree_0_to_0
+      {:ok, actual} = @subject.insert(c.empty_tree, c.key_0, c.value_0)
       assert expected == actual
     end
 
     test "new min value to size 1 tree", c do
-      expected = c.tree_0_to_1
-      {:ok, actual} = @subject.insert(c.tree_1_to_1, c.key0, c.value0)
+      expected = c.tree_0_to_0
+      {:ok, actual} = @subject.insert(c.empty_tree, c.key_0, c.value_0)
       assert expected == actual
     end
 
     test "new max value to size 1 tree", c do
       expected = c.tree_0_to_1
-      {:ok, actual} = @subject.insert(c.tree_0_to_0, c.key1, c.value1)
+      {:ok, actual} = @subject.insert(c.tree_0_to_0, c.key_1, c.value_1)
       assert expected == actual
     end
 
     test "new min value to size 2 tree", c do
       expected = c.tree_0_to_2
-      {:ok, actual} = @subject.insert(c.tree_1_to_2, c.key0, c.value0)
+      {:ok, actual} = @subject.insert(c.tree_1_to_2, c.key_0, c.value_0)
       assert expected == actual
     end
 
     test "new max value to size 2 tree", c do
-      expected = c.size3
-      {:ok, actual} = @subject.insert(c.size2, c.key2, c.value2)
+      expected = c.tree_0_to_2
+      {:ok, actual} = @subject.insert(c.tree_0_to_1, c.key_2, c.value_2)
       assert expected == actual
     end
 
     test "new max value to size 3 tree", c do
-      expected = c.size4
-      {:ok, actual} = @subject.insert(c.size3, c.key3, c.value3)
+      expected = c.tree_0_to_3
+      {:ok, actual} = @subject.insert(c.tree_0_to_2, c.key_3, c.value_3)
       assert expected == actual
     end
 
     test "new max value to size 4 tree", c do
-      expected = c.size5
-      {:ok, actual} = @subject.insert(c.size4, c.key4, c.value4)
+      expected = c.tree_0_to_4
+      {:ok, actual} = @subject.insert(c.tree_0_to_3, c.key_4, c.value_4)
       assert expected == actual
     end
 
     test "new max value to size 5 tree", c do
-      expected = c.size6
-      {:ok, actual} = @subject.insert(c.size5, c.key5, c.value5)
+      expected = c.tree_0_to_5
+      {:ok, actual} = @subject.insert(c.tree_0_to_4, c.key_5, c.value_5)
       assert expected == actual
     end
 
     test "new max value to size 6 tree", c do
-      expected = c.size7()
-      {:ok, actual} = @subject.insert(c.size6, c.key6, c.value6)
+      expected = c.tree_0_to_6()
+      {:ok, actual} = @subject.insert(c.tree_0_to_5, c.key_6, c.value_6)
       assert expected == actual
     end
   end
@@ -589,43 +518,43 @@ defmodule Boscage.PapalTreeTest do
 
   describe "&pop/1" do
     test "size 1 tree", c do
-      expected = {{c.key0, c.value0}, c.size0}
-      {:ok, actual} = @subject.pop(c.size1)
+      expected = {{c.key_0, c.value_0}, c.empty_tree}
+      {:ok, actual} = @subject.pop(c.tree_0_to_0)
       assert expected == actual
     end
 
     test "size 2 tree", c do
-      expected = {{c.key1, c.value1}, c.size1}
-      {:ok, actual} = @subject.pop(c.size2)
+      expected = {{c.key_1, c.value_1}, c.tree_0_to_0}
+      {:ok, actual} = @subject.pop(c.tree_0_to_1)
       assert expected == actual
     end
 
     test "size 3 tree", c do
-      expected = {{c.key2, c.value2}, c.size2}
-      {:ok, actual} = @subject.pop(c.size3)
+      expected = {{c.key_2, c.value_2}, c.tree_0_to_1}
+      {:ok, actual} = @subject.pop(c.tree_0_to_2)
       assert expected == actual
     end
 
     test "size 4 tree", c do
-      expected = {{c.key3, c.value3}, c.size3}
-      {:ok, actual} = @subject.pop(c.size4)
+      expected = {{c.key_3, c.value_3}, c.tree_0_to_2}
+      {:ok, actual} = @subject.pop(c.tree_0_to_3)
       assert expected == actual
     end
 
     test "size 5 tree", c do
-      expected = {{c.key4, c.value4}, c.size4}
-      {:ok, actual} = @subject.pop(c.size5)
+      expected = {{c.key_4, c.value_4}, c.tree_0_to_3}
+      {:ok, actual} = @subject.pop(c.tree_0_to_4)
       assert expected == actual
     end
 
     test "size 6 tree", c do
-      expected = {{c.key5, c.value5}, c.tree_0_to_4}
+      expected = {{c.key_5, c.value_5}, c.tree_0_to_4}
       {:ok, actual} = @subject.pop(c.tree_0_to_5)
       assert expected == actual
     end
 
     test "size 7 tree", c do
-      expected = {{c.key6, c.value6}, c.tree_0_to_5}
+      expected = {{c.key_6, c.value_6}, c.tree_0_to_5}
       {:ok, actual} = @subject.pop(c.tree_0_to_6)
       assert expected == actual
     end
@@ -633,37 +562,37 @@ defmodule Boscage.PapalTreeTest do
 
   describe "&shift/1" do
     test "size 1 tree", c do
-      expected = {{c.key0, c.value0}, c.shifted_size0}
-      {:ok, actual} = @subject.shift(c.size1)
+      expected = {{c.key_0, c.value_0}, c.empty_tree}
+      {:ok, actual} = @subject.shift(c.tree_0_to_0)
       assert expected == actual
     end
 
     test "size 2 tree", c do
-      expected = {{c.key0, c.value0}, c.shifted_size1}
-      {:ok, actual} = @subject.shift(c.size2)
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_1}
+      {:ok, actual} = @subject.shift(c.tree_0_to_1)
       assert expected == actual
     end
 
     test "size 3 tree", c do
-      expected = {{c.key0, c.value0}, c.shifted_size2}
-      {:ok, actual} = @subject.shift(c.size3)
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_2}
+      {:ok, actual} = @subject.shift(c.tree_0_to_2)
       assert expected == actual
     end
 
     test "size 4 tree", c do
-      expected = {{c.key0, c.value0}, c.shifted_size3}
-      {:ok, actual} = @subject.shift(c.size4)
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_3}
+      {:ok, actual} = @subject.shift(c.tree_0_to_3)
       assert expected == actual
     end
 
     test "size 5 tree", c do
-      expected = {{c.key0, c.value0}, c.shifted_size4}
-      {:ok, actual} = @subject.shift(c.size5)
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_4}
+      {:ok, actual} = @subject.shift(c.tree_0_to_4)
       assert expected == actual
     end
 
     test "size 6 tree", c do
-      expected = {{c.key0, c.value0}, c.tree_1_to_5}
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_5}
       {:ok, actual} = @subject.shift(c.tree_0_to_5)
       assert expected == actual
     end
