@@ -253,7 +253,8 @@ defmodule Boscage.PapalTreeTest do
 
   def tree_0_to_0(), do: tree(1, key_0(), value_0())
 
-  def tree_0_to_0_and_2_to_2(), do: tree(2, key_0(), value_0(), key_2(), value_2())
+  def tree_0_to_0_and_2_to_2(),
+    do: tree(2, key_0(), value_0(), key_2(), value_2())
 
   def tree_0_to_1(), do: tree(2, key_0(), value_0(), key_1(), value_1())
 
@@ -460,7 +461,10 @@ defmodule Boscage.PapalTreeTest do
 
     test "mid value to size 2 tree", c do
       expected = c.tree_0_to_2
-      {:ok, actual} = @subject.insert(c.tree_0_to_0_and_2_to_2, c.key_1, c.value_1)
+
+      {:ok, actual} =
+        @subject.insert(c.tree_0_to_0_and_2_to_2, c.key_1, c.value_1)
+
       assert expected == actual
     end
 
@@ -470,7 +474,13 @@ defmodule Boscage.PapalTreeTest do
       assert expected == actual
     end
 
-    test "new max value to size 3 tree", c do
+    test "min value to size 3 tree", c do
+      expected = c.tree_0_to_3
+      {:ok, actual} = @subject.insert(c.tree_1_to_3, c.key_0, c.value_0)
+      assert expected == actual
+    end
+
+    test "max value to size 3 tree", c do
       expected = c.tree_0_to_3
       {:ok, actual} = @subject.insert(c.tree_0_to_2, c.key_3, c.value_3)
       assert expected == actual
