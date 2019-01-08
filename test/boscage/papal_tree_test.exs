@@ -19,26 +19,6 @@ defmodule Boscage.PapalTreeTest do
 
   def key_6(), do: 6
 
-  def tree_1_to_1() do
-    tree(1, key_1(), value_1())
-  end
-
-  def tree_1_to_5() do
-    tree(
-      5,
-      key_1(),
-      value_1(),
-      key_2(),
-      value_2(),
-      key_3(),
-      value_3(),
-      key_4(),
-      value_4(),
-      key_5(),
-      value_5()
-    )
-  end
-
   def tree(1, key_0, value_0) do
     %@subject{key: key_0, value: value_0, size: 1}
   end
@@ -347,6 +327,8 @@ defmodule Boscage.PapalTreeTest do
     )
   end
 
+  def tree_1_to_1(), do: tree(1, key_1(), value_1())
+
   def tree_1_to_2(), do: tree(2, key_1(), value_1(), key_2(), value_2())
 
   def tree_1_to_3() do
@@ -364,6 +346,40 @@ defmodule Boscage.PapalTreeTest do
       value_3(),
       key_4(),
       value_4()
+    )
+  end
+
+  def tree_1_to_5() do
+    tree(
+      5,
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4(),
+      key_5(),
+      value_5()
+    )
+  end
+
+  def tree_1_to_6() do
+    tree(
+      6,
+      key_1(),
+      value_1(),
+      key_2(),
+      value_2(),
+      key_3(),
+      value_3(),
+      key_4(),
+      value_4(),
+      key_5(),
+      value_5(),
+      key_6(),
+      value_6()
     )
   end
 
@@ -403,6 +419,7 @@ defmodule Boscage.PapalTreeTest do
       tree_1_to_3: tree_1_to_3(),
       tree_1_to_4: tree_1_to_4(),
       tree_1_to_5: tree_1_to_5(),
+      tree_1_to_6: tree_1_to_6(),
       value_0: value_0(),
       value_1: value_1(),
       value_2: value_2(),
@@ -594,6 +611,12 @@ defmodule Boscage.PapalTreeTest do
     test "size 6 tree", c do
       expected = {{c.key_0, c.value_0}, c.tree_1_to_5}
       {:ok, actual} = @subject.shift(c.tree_0_to_5)
+      assert expected == actual
+    end
+
+    test "size 7 tree", c do
+      expected = {{c.key_0, c.value_0}, c.tree_1_to_6}
+      {:ok, actual} = @subject.shift(c.tree_0_to_6)
       assert expected == actual
     end
   end
